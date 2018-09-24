@@ -9,9 +9,9 @@
 2. requirements
   In the assignment you need to implement "Hardware Interrupt" for detecting if the buttons are pressed, and "Timer Interrupt" to substidute delay(). 
   
-  study reference - 
-  Hardware Interrupt: https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/
-  Timer Interrupt: https://learn.adafruit.com/multi-tasking-the-arduino-part-2/timers
+  study reference
+  - Hardware Interrupt: https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/
+  - Timer Interrupt: https://learn.adafruit.com/multi-tasking-the-arduino-part-2/timers
   
   
 3. submission
