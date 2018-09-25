@@ -1,5 +1,5 @@
 # EE Training
-  This place is for EE training assignments. To submit the assignments, please create a branch named after your display name on Slack, and then push to the remote repo. For the files not on the expected location, they are not acknowledged.
+This repository contains the assignments for EE training. 
 
 # First Assignment
 
@@ -16,7 +16,7 @@ Study Reference
   
   
 ## Submission
-You will use git to retrieve and submit the assignment. Make a branch with your own Slack display name so that we can identify your submission.
+You will use git to retrieve and submit the assignment. Make a branch with your own Slack display name so that we can identify your submission. Failure to put the files in the expected place will be considered an un-qualified submissions.
 
 ### Basic guide on using GitHub
 * You must have git installed on your PC. Download it from [here](https://git-scm.com/)
