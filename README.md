@@ -1,4 +1,4 @@
-# ee_training
+# EE Training
   This place is for EE training assignments. To submit the assignments, please create a branch named after your display name on Slack, and then push to the remote repo. For the files not on the expected location, they are not acknowledged.
 
 # First Assignment
@@ -27,4 +27,4 @@ You will use Git to retrieve and submit the assignment.  Use `$git clone` to get
 * Now, you can `git push origin [branch_name]` to push code to GitHub.
 
 ## Assessment
-The result would be determined by th actually performance of the device, so if you need access to the device, please make a request at the knock_knock channel on Slack.
+The result would be determined by the actual performance of the device, so we encourage you to use the hardware available at the lab for testing. If you need access to the device, please make a request at the knock_knock channel on Slack.
