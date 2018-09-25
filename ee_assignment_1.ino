@@ -35,6 +35,7 @@ bool check_occupied(const int& pin_switch){
 
 void setup()
 {
+  //Setup the control and state of the Right gate
   pinMode(right.pin_switch, INPUT_PULLUP);
   pinMode(right.pin_servo, OUTPUT);
   pinMode(right.pin_indicator, OUTPUT);
@@ -43,6 +44,8 @@ void setup()
   right.servo.write(right.ref.CLOSE);
   delay(15);
   
+
+  //Setup the control and state of the Left gate
   pinMode(left.pin_switch, INPUT_PULLUP);
   pinMode(left.pin_servo, OUTPUT);
   pinMode(left.pin_indicator, OUTPUT);
