@@ -23,7 +23,7 @@ You will use Git to retrieve and submit the assignment.  Use `$git clone` to get
 * You must have git installed on your PC. Download it from [here](https://git-scm.com/)
 * Use `git clone https://github.com/project-herakles/ee_training.git` to clone the repository for yourself. You will see that you will be on `master` branch.
 * You will need a new branch for yourself on your computer, and you can do so by using the command: `git checkout -b [branch-name]`
-* GitHub requires you to switch to the other branch before you can start pushing code to GitHub. Use: `git checkout [branch-name]`
+* GitHub requires you to switch to the branch before you can start pushing code to GitHub. Use: `git checkout [branch-name]` to switch between branches.
 * Now, you can `git push origin [branch_name]` to push code to GitHub.
 
 ## Assessment
