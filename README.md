@@ -1,5 +1,5 @@
 # EE Training
-  This place is for EE training assignments. To submit the assignments, please create a branch named after your display name on Slack, and then push to the remote repo. For the files not on the expected location, they are not acknowledged.
+This repository contains the assignments for EE training. 
 
 # First Assignment
 
@@ -16,13 +16,15 @@ Study Reference
   
   
 ## Submission
-You will use Git to retrieve and submit the assignment.  Use `$git clone` to get a copy on your local repo, `$git push` to update the file locally, an `$git commit` to upload the file onto your branch named after your Slack display name.
-
+You will use git to retrieve and submit the assignment. Make a branch with your own Slack display name so that we can identify your submission. Failure to put the files in the expected place will be considered an un-qualified submissions.
 
 ### Basic guide on using GitHub
 * You must have git installed on your PC. Download it from [here](https://git-scm.com/)
 * Use `git clone https://github.com/project-herakles/ee_training.git` to clone the repository for yourself. You will see that you will be on `master` branch.
 * You will need a new branch for yourself on your computer, and you can do so by using the command: `git checkout -b [branch-name]`
+* GitHub requires you to switch to the other branch before you can start pushing code to GitHub. Use: `git checkout [branch-name]`
+* After making changes to your code, you need to commit those changes. Use `git commit -am "<your commit message>"` (replace with your own commit message) to commit your code to the branch.
+* Now, you need to use: `git push origin [branch_name]` to push code to GitHub.
 * GitHub requires you to switch to the branch before you can start pushing code to GitHub. Use: `git checkout [branch-name]` to switch between branches.
 * Now, you can `git push origin [branch_name]` to push code to GitHub.
 
