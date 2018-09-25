@@ -25,6 +25,8 @@ You will use git to retrieve and submit the assignment. Make a branch with your 
 * GitHub requires you to switch to the other branch before you can start pushing code to GitHub. Use: `git checkout [branch-name]`
 * After making changes to your code, you need to commit those changes. Use `git commit -am "<your commit message>"` (replace with your own commit message) to commit your code to the branch.
 * Now, you need to use: `git push origin [branch_name]` to push code to GitHub.
+* GitHub requires you to switch to the branch before you can start pushing code to GitHub. Use: `git checkout [branch-name]` to switch between branches.
+* Now, you can `git push origin [branch_name]` to push code to GitHub.
 
 ## Assessment
 The result would be determined by the actual performance of the device, so we encourage you to use the hardware available at the lab for testing. If you need access to the device, please make a request at the knock_knock channel on Slack.
