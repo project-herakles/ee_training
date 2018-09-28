@@ -12,7 +12,7 @@ In the assignment you need to implement "Hardware Interrupt" for detecting if th
 
 Study Reference
   - Hardware Interrupt: https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/
-  - Timer Interrupt: https://learn.adafruit.com/multi-tasking-the-arduino-part-2/timers
+  - Timer Interrupt: https://protostack.com.au/2010/09/timer-interrupts-on-an-atmega168/, https://learn.adafruit.com/multi-tasking-the-arduino-part-2/timers
   
   
 ## Submission
