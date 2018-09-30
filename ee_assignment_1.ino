@@ -1,7 +1,7 @@
 #include <Servo.h>
 #define LEFT_DEFAULT {9, 5, 7, false, gate_left}
 #define RIGHT_DEFAULT {10, 6, 8, false, gate_right}
-
+//My assignment
 //The reference position for the servo
 struct Gate_Ref{
   int OPEN;
