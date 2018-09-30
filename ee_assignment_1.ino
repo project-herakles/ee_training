@@ -86,3 +86,5 @@ void loop(){
     left.occupied = check_occupied(left.pin_switch);
   }
 }
+
+//Just a simple test.
