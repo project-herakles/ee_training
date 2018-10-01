@@ -146,7 +146,6 @@ ISR(TIMER0_COMPA_vect)
     right.current_position = right.ref.CLOSE;
     right.prevMilli = milliMax;
   }
-  currentMilli = millis();
   if (currentMilli >= left.prevMilli + secondsToDelay*1000)
   {
     left.servo.write(left.ref.CLOSE);
