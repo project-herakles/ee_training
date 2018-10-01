@@ -64,15 +64,15 @@ void setup()
   delay(15);
 
   //Insert hardware interrupt
-  attachInterrupt(digitalPinToInterrupt(left.pin_switch),open_left,FALLING);
-  attachInterrupt(digitalPinToInterrupt(right.pin_switch),open_right,FALLING);
+  attachInterrupt(digitalPinToInterrupt(left.pin_switch), open_left, FALLING);
+  attachInterrupt(digitalPinToInterrupt(right.pin_switch), open_right, FALLING);
 
   //Insert timer interrupt
-  TCCR0A = 0;
-  TCNT0 = 0;
+  TCCR0A = 0; //set entire TCCR1A register to 0
+  TCNT0 = 0; //initialize counter value to 0
   OCR0A = 255;
-  TCCR0A |= (1<<WGM01);
-  TIMSK0 |= (1<<OCIE0A);
+  TCCR0A |= (1 << WGM01); //turn on CTC mode
+  TIMSK0 |= (1 << OCIE0A); //enable timer compare interrupt
 }
 
 ISR(TIMER0_COMPA_vect)
@@ -84,7 +84,6 @@ ISR(TIMER0_COMPA_vect)
     right.servo.write(right.ref.CLOSE);
     right.starter = reset; //reset starter
   }
-  currentMillis = millis(); //refetch currentmillis in case it changes
   if (currentMillis >= left.starter + 2000)
   {
     digitalWrite(left.pin_indicator, LOW);
