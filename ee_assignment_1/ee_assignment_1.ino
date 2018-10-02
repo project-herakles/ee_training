@@ -10,6 +10,8 @@ struct Gate_Ref{
 const Gate_Ref gate_left = {130, 50}, gate_right = {90, 170};
 
 enum State {VACANT, OCCUPIED};
+int time_counterR = 0;
+int time_counterL = 0;
 struct Device {
   int pin_servo; //the motor controlling the gate.
   int pin_switch;
@@ -17,7 +19,7 @@ struct Device {
   bool occupied;
   Gate_Ref ref;
   Servo servo;
-};
+}
 Device right = RIGHT_DEFAULT;
 Device left = LEFT_DEFAULT;
 
@@ -32,16 +34,19 @@ bool check_occupied(const int& pin_switch){
   else 
     return !first; //TRUE if the button is pressed
 }
-
-void setup()
-{
-  //Setup the control and state of the Right gate
+void setup() {
+  // put your setup code here, to run once:
+  OCR0A = 0xAF;
+  TIMSK0 |= _BV(OCIE0A);
+  
+//Setup the control and state of the Right gate
   pinMode(right.pin_switch, INPUT_PULLUP);
   pinMode(right.pin_servo, OUTPUT);
   pinMode(right.pin_indicator, OUTPUT);
   digitalWrite(right.pin_indicator, LOW);
   right.servo.attach(right.pin_servo);
   right.servo.write(right.ref.CLOSE);
+  attachInterrupt(digitalPinToInterrupt(left.pin_switch), startup_right, LOW);
   delay(15);
   
 
@@ -52,37 +57,47 @@ void setup()
   digitalWrite(left.pin_indicator, LOW);
   left.servo.attach(left.pin_servo);
   left.servo.write(left.ref.CLOSE);
+  attachInterrupt(digitalPinToInterrupt(right.pin_switch), startup_left, LOW);
   delay(15);
   
   //Serial.begin(115200);
 }
+  //ISR
+void startup_right(){
+  digitalWrite(right.pin_indicator, HIGH);
+  right.servo.write(right.ref.OPEN);
+  time_counterR = 1;
+  }  
 
-//Open the gate if the button state is swithced from OCCUPIED to VACANT, and close the gate automatically after 2 seconds.
-void loop(){
-  if (!right.occupied){
-    right.occupied = check_occupied(right.pin_switch);
-    if (right.occupied){
-      digitalWrite(right.pin_indicator, HIGH);
-      right.servo.write(right.ref.OPEN);
-      delay(2000);
-      right.servo.write(right.ref.CLOSE);
-      delay(15);
-      digitalWrite(right.pin_indicator, LOW);
+void startup_left(){
+  digitalWrite(left.pin_indicator, HIGH);
+  leftt.servo.write(left.ref.OPEN);
+  time_counterL = 1;
+  }  
+  
+SIGNAL(TIMER0_COMPA_vect){
+  if (time_counterR > 0){
+    time_counterR ++;
     }
-  } else {
-    right.occupied = check_occupied(right.pin_switch);
-  }
-  if (!left.occupied){
-    left.occupied = check_occupied(left.pin_switch);
-    if (left.occupied){
-      digitalWrite(left.pin_indicator, HIGH);
-      left.servo.write(left.ref.OPEN);
-      delay(2000);
-      left.servo.write(left.ref.CLOSE);
-      delay(15);
-      digitalWrite(left.pin_indicator, LOW);
+  if (time_counterL > 0){
+    time_counterL ++;
     }
-  } else {
-    left.occupied = check_occupied(left.pin_switch);
+  else 
+    right.occupied = check_occupied(right.pin_switch);
+    left.occupied = check_occupied(left.pin_switch); // necessary?
+    } 
   }
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if (time_counterR > 2000){
+    right.servo.write(right.ref.CLOSE);
+    digitalWrite(right.pin_indicator, LOW);
+    time_counterR = 0;
+    }
+  if (time_counterL > 2000){
+    left.servo.write(left.ref.CLOSE);
+    digitalWrite(left.pin_indicator, LOW);
+    time_counterL = 0;
+    }
 }
