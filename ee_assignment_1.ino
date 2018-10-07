@@ -1,6 +1,6 @@
 #include <Servo.h>
-#define LEFT_DEFAULT {9, 5, 7, false, gate_left}
-#define RIGHT_DEFAULT {10, 6, 8, false, gate_right}
+#define LEFT_DEFAULT {11, 3, 7, false, gate_left}
+#define RIGHT_DEFAULT {10, 2, 8, false, gate_right}
 
 //The reference position for the servo
 struct Gate_Ref{
@@ -20,18 +20,6 @@ struct Device {
 };
 Device right = RIGHT_DEFAULT;
 Device left = LEFT_DEFAULT;
-
-//Exmamine if the button is pressed, which indicates the parking slot is occcupied
-//@return TRUE if the button is pressedif the button is pressed, FALSE otherwise
-bool check_occupied(const int& pin_switch){
-  int first = digitalRead(pin_switch); // reads LOW if the button is pressed
-  delay(15);
-  int second = digitalRead(pin_switch); // read second time in case of glitches
-  if (first != second)
-    return check_occupied(pin_switch);
-  else 
-    return !first; //TRUE if the button is pressed
-}
 
 void setup()
 {
@@ -53,36 +41,53 @@ void setup()
   left.servo.attach(left.pin_servo);
   left.servo.write(left.ref.CLOSE);
   delay(15);
+
+  attachInterrupt(digitalPinToInterrupt(right.pin_switch), rightGate, FALLING);
+  attachInterrupt(digitalPinToInterrupt(left.pin_switch), leftGate, FALLING);
   
-  //Serial.begin(115200);
+  Serial.begin(9600);
+}
+
+unsigned long lmil, rmil;
+void rightGate()
+{
+  if(right.occupied == false)
+  {
+    Serial.println("right open");
+    digitalWrite(right.pin_indicator, HIGH);
+    right.servo.write(right.ref.OPEN);
+    right.occupied = true;
+    rmil = millis();
+  }
+}
+
+void leftGate()
+{
+  if(left.occupied == false)
+  {
+    Serial.println("left open");
+    digitalWrite(left.pin_indicator, HIGH);
+    left.servo.write(left.ref.OPEN);
+    left.occupied = true;
+    lmil = millis();
+  }
 }
 
 //Open the gate if the button state is swithced from OCCUPIED to VACANT, and close the gate automatically after 2 seconds.
-void loop(){
-  if (!right.occupied){
-    right.occupied = check_occupied(right.pin_switch);
-    if (right.occupied){
-      digitalWrite(right.pin_indicator, HIGH);
-      right.servo.write(right.ref.OPEN);
-      delay(2000);
-      right.servo.write(right.ref.CLOSE);
-      delay(15);
-      digitalWrite(right.pin_indicator, LOW);
-    }
-  } else {
-    right.occupied = check_occupied(right.pin_switch);
+void loop()
+{
+  if(right.occupied && millis() >= rmil + 2000)
+  {
+    Serial.println("right close");
+    digitalWrite(right.pin_indicator, LOW);
+    right.servo.write(right.ref.CLOSE);
+    right.occupied = false;
   }
-  if (!left.occupied){
-    left.occupied = check_occupied(left.pin_switch);
-    if (left.occupied){
-      digitalWrite(left.pin_indicator, HIGH);
-      left.servo.write(left.ref.OPEN);
-      delay(2000);
-      left.servo.write(left.ref.CLOSE);
-      delay(15);
-      digitalWrite(left.pin_indicator, LOW);
-    }
-  } else {
-    left.occupied = check_occupied(left.pin_switch);
+  if(left.occupied && millis() >= lmil + 2000)
+  {
+    Serial.println("left close");
+    digitalWrite(left.pin_indicator, LOW);
+    left.servo.write(left.ref.CLOSE);
+    left.occupied = false;
   }
 }
