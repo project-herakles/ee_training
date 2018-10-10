@@ -64,10 +64,6 @@ bool check_occupied(const int& pin_switch){
 
   else 
 
-    return !first; //TRUE if the button is pressed
-
-}
-  int rtime=-1;
   int ltime=-1;
 
 
@@ -90,7 +86,7 @@ void setup()
   right.servo.write(right.ref.CLOSE);
 
   delay(15);
-  attachInterrupt(digitalPinToInterrupt(3),timer_right,FALLING);
+  attachInterrupt(digitalPinToInterrupt(2),timer_right,FALLING);
   
 
 
@@ -111,7 +107,7 @@ void setup()
 
   delay(15);
 
-  attachInterrupt(digitalPinToInterrupt(2),timer_left,FALLING);
+  attachInterrupt(digitalPinToInterrupt(3),timer_left,FALLING);
    TCCR0A = 0;
 
    TCNT0 = 0;
